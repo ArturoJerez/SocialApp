@@ -24,3 +24,15 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+@media(min-width:599px) {
+    ion-header.min-phone {
+        display: none;
+    }
+}
+
+@media(max-width:600px) {
+    ion-header.min-window {
+        display: none;
+    }
+}
