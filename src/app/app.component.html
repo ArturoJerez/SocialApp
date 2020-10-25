@@ -1,5 +1,5 @@
 <ion-app>
-  <ion-menu side="start" menuId="first" contentId="main">
+  <ion-menu side="start" menuId="first" contentId="main" *ngIf="identity">
     <ion-header>
       <ion-toolbar color="primary">
         <ion-avatar slot="start">
@@ -11,11 +11,27 @@
     <ion-content>
       <ion-list>
         <ion-item>Cuenta</ion-item>
-        <ion-item>Buscar</ion-item>
+        <ion-item>Timeline</ion-item>
         <ion-item>Chats</ion-item>
       </ion-list>
       <ion-list>
         <ion-item>Cerrar Sesión</ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+
+  <ion-menu side="start" menuId="first" contentId="main" *ngIf="!identity">
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-avatar slot="start">
+          <img src="https://www.inmosenna.com/wp-content/uploads/2018/07/avatar-user-business-man-399587fe24739d5a-512x512.png">
+        </ion-avatar>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <ion-item><a [routerLink]="['/login']" [routerLinkActive]="['active']">Iniciar Sesión</a></ion-item>
+        <ion-item><a [routerLink]="['/registro']" [routerLinkActive]="['active']">Registrarse</a></ion-item>
       </ion-list>
     </ion-content>
   </ion-menu>
