@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { User } from '../../models/user'; // Modelo USER
-import { UserService } from '../services/user.service'; // Servicio USER
+import { User } from '../../../models/user'; // Modelo USER
+import { UserService } from '../../services/user.service'; // Servicio USER
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,8 @@ export class LoginPage implements OnInit {
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
-    private _userService: UserService
+    private _userService: UserService,
+    public toastController: ToastController
   ) {
     this.title = "Identificate";
     this.user = new User("", "", "", "", "", "", "ROLE_USER", ""); // Creo un usuario vacío
@@ -28,6 +30,24 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
     console.log("Página de login funcionando...");
+  }
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Has iniciado sesión correctamente',
+      duration: 2000,
+      color: 'success'
+    });
+    toast.present();
+  }
+
+  async presentToastError() {
+    const toast = await this.toastController.create({
+      message: 'Correo o contraseña incorrectas',
+      duration: 2000,
+      color: 'danger'
+    });
+    toast.present();
   }
 
   onSubmit() {
@@ -39,7 +59,7 @@ export class LoginPage implements OnInit {
         if(!this.identity && !this.identity._id) {
           this.status = 'error';
         } else {
-          this.status = 'success';
+          this.presentToast();
           // Persistir datos del usuario en almacenamiento local
           localStorage.setItem('identity', JSON.stringify(this.identity));
 
@@ -53,6 +73,7 @@ export class LoginPage implements OnInit {
 
         if(errorMessage != null) {
           this.status = 'error';
+          this.presentToastError();
         }
       }
     );
@@ -66,11 +87,11 @@ export class LoginPage implements OnInit {
         if(this.token.length <= 0) {
           this.status = 'error';
         } else {
-          this.status = 'success';
           // Persistir Token del usuario
-          localStorage.setItem('token', this.token);
+          localStorage.setItem('token', JSON.stringify(this.token));
 
           // Conseguir los contadores o estadisticas del usuario
+          this.getCounters();
         }
       },
       (error: any) => {
@@ -82,6 +103,21 @@ export class LoginPage implements OnInit {
         }
       }
     );
+  }
+
+  getCounters() {
+    this._userService.getCounters().subscribe(
+      (response) => {
+        console.log(response);
+        localStorage.setItem('stats', JSON.stringify(response));
+        this.status = 'success';
+        this._router.navigate(['/']);
+      },
+      (error) => {
+        console.log(<any>error);
+        this.status = 'error';
+      }
+    )
   }
 
 }

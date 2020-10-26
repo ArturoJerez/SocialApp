@@ -26,13 +26,13 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 @media(min-width:599px) {
-    ion-header.min-phone {
+    .min-phone {
         display: none;
     }
 }
 
 @media(max-width:600px) {
-    ion-header.min-window {
+    .min-window {
         display: none;
     }
 }
@@ -50,4 +50,8 @@
 .active {
     background: #d6d4d4;
     font-size: 19px;
+}
+
+.pointer {
+    cursor: pointer;
 }

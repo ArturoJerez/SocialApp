@@ -1,11 +1,11 @@
 <ion-app>
-  <ion-menu side="start" menuId="first" contentId="main" *ngIf="identity">
+  <ion-menu class="min-phone" side="start" menuId="first" contentId="main" *ngIf="identity">
     <ion-header>
       <ion-toolbar color="primary">
         <ion-avatar slot="start">
           <img src="https://www.inmosenna.com/wp-content/uploads/2018/07/avatar-user-business-man-399587fe24739d5a-512x512.png">
         </ion-avatar>
-        <ion-title>Mi Perfil</ion-title>
+        <ion-title>{{identity.name}}</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content>
@@ -15,12 +15,12 @@
         <ion-item>Chats</ion-item>
       </ion-list>
       <ion-list>
-        <ion-item>Cerrar Sesión</ion-item>
+        <ion-item class="pointer" (click)="logout()">Cerrar Sesión</ion-item>
       </ion-list>
     </ion-content>
   </ion-menu>
 
-  <ion-menu side="start" menuId="first" contentId="main" *ngIf="!identity">
+  <ion-menu class="min-phone" side="start" menuId="first" contentId="main" *ngIf="!identity">
     <ion-header>
       <ion-toolbar color="primary">
         <ion-avatar slot="start">

@@ -4,6 +4,7 @@ import { UserService } from './services/user.service';
 import { Platform, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,9 @@ export class AppComponent implements OnInit, DoCheck {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     public menu: MenuController,
-    private _userService: UserService
+    private _userService: UserService,
+    private _route: ActivatedRoute,
+    private _router: Router
   ) {
     this.initializeApp();
   }
@@ -43,5 +46,11 @@ export class AppComponent implements OnInit, DoCheck {
 
   ngDoCheck() {
     this.identity = this._userService.getIdentity();
+  }
+
+  logout() {
+    localStorage.clear();
+    this.identity = null;
+    this._router.navigate(['/']);
   }
 }
