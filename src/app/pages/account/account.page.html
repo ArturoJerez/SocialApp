@@ -43,9 +43,13 @@
         El correo es obligatorio
     </span>
 
+    <div *ngIf="user.image">
+      <img src="{{ url + 'get-image-user/' + user.image}}" />
+    </div>
+
     <ion-item>
       <ion-label position="floating">Imagen de Perfil</ion-label>
-      <ion-input type="file" placeholder="Subir imagen"></ion-input>
+      <ion-input type="file" placeholder="Subir imagen" (change)="fileChangeEvent($event)"></ion-input>
   </ion-item>
 
     <ion-row>

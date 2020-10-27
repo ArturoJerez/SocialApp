@@ -2,18 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { ToastController } from '@ionic/angular';
+import { GLOBAL } from '../../services/global';
 
 // MODELO USER
 import { User } from '../../../models/user';
 
-// SERVICIO USER
+// SERVICIOS
 import { UserService } from '../../services/user.service';
+import { UploadService } from '../../services/upload.service';
 
 @Component({
   selector: 'app-account',
   templateUrl: './account.page.html',
   styleUrls: ['./account.page.scss'],
-  providers: [UserService]
+  providers: [UserService, UploadService]
 })
 export class AccountPage implements OnInit {
   public title: string;
@@ -21,17 +23,20 @@ export class AccountPage implements OnInit {
   public identity;
   public token;
   public status: string;
+  public url: string;
 
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
     private _userService: UserService,
-    public toastController: ToastController
+    public toastController: ToastController,
+    private _uploadService: UploadService
   ) {
     this.title = 'Mis Datos';
     this.user = this._userService.getIdentity();
     this.identity = this.user;
     this.token = this._userService.getToken();
+    this.url = GLOBAL.url;
   }
 
   async presentToast() {
@@ -69,6 +74,12 @@ export class AccountPage implements OnInit {
           this.identity = this.user;
 
           //SUBIDA IMAGEN DE USUARIO
+          this._uploadService.makeFileRequest(this.url+'upload-image-user/'+this.user._id, [], this.filesToUpload, this.token, 'image')
+                      .then((result: any) => {
+                        console.log(result);
+                        this.user.image = result.user.image;
+                        localStorage.setItem('identity', JSON.stringify(this.user));
+                      });
         }
       },
       (error) => {
@@ -80,6 +91,12 @@ export class AccountPage implements OnInit {
         this.presentToastError();
       }
     )
+  }
+
+  public filesToUpload: Array<File>;
+  fileChangeEvent(fileInput: any) {
+    this.filesToUpload = <Array<File>>fileInput.target.files;
+    console.log(this.filesToUpload);
   }
 
 }

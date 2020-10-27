@@ -6,6 +6,8 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { GLOBAL } from './services/global';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -14,6 +16,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class AppComponent implements OnInit, DoCheck {
   public identity;
+  public url: string;
 
   constructor(
     private platform: Platform,
@@ -25,11 +28,12 @@ export class AppComponent implements OnInit, DoCheck {
     private _router: Router
   ) {
     this.initializeApp();
+    this.url = GLOBAL.url;
   }
 
   ngOnInit(): void {
     this.identity = this._userService.getIdentity();
-    console.log(this.identity);
+    //console.log(this.identity);
   }
 
   initializeApp() {

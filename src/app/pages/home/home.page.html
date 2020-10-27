@@ -6,17 +6,22 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" *ngIf="identity">
   <app-explore-container title="Bienvenido a SocialApp"></app-explore-container>
-  <ion-card>
+  <ion-card >
     <ion-item>
       <ion-avatar slot="start">
-        <img src="https://www.inmosenna.com/wp-content/uploads/2018/07/avatar-user-business-man-399587fe24739d5a-512x512.png">
+        <img src="{{ url + 'get-image-user/' + identity.image }}" *ngIf="identity && identity.image" />
       </ion-avatar>
-      <ion-label>En que estas pensando?</ion-label>
+      <ion-label position="floating">En que estas pensando?</ion-label>
+      <ion-input type="text" required></ion-input>
     </ion-item>
     <ion-content>
       <textarea></textarea>
     </ion-content>
   </ion-card>
+</ion-content>
+
+<ion-content [fullscreen]="true" *ngIf="!identity">
+  <app-explore-container title="Bienvenido a SocialApp"></app-explore-container>
 </ion-content>
