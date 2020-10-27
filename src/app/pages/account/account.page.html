@@ -1,9 +1,57 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>account</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title>{{title}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <form #editUser="ngForm" novalidate>
+    <ion-item lines="full">
+      <ion-label position="floating">Nombre</ion-label>
+      <ion-input name="name" #name="ngModel" [(ngModel)]="user.name"
+              type="text" placeholder="Nombre" required></ion-input> 
+    </ion-item>
+    <span class="alert alert-danger" *ngIf="!name.valid && name.touched">
+        El nombre es obligatorio
+    </span>
 
+    <ion-item lines="full">
+        <ion-label position="floating">Apellidos</ion-label>
+        <ion-input name="surname" #surname="ngModel" [(ngModel)]="user.surname"
+                type="text" placeholder="Apellidos" required></ion-input> 
+    </ion-item>
+    <span class="alert alert-danger" *ngIf="!surname.valid && surname.touched">
+        Los apellidos son obligatorios
+    </span>
+
+    <ion-item lines="full">
+        <ion-label position="floating">Nombre de usuario</ion-label>
+        <ion-input name="nick" #nick="ngModel" [(ngModel)]="user.nick"
+                type="text" placeholder="Nombre de Usuario" required></ion-input> 
+    </ion-item>
+    <span class="alert alert-danger" *ngIf="!nick.valid && nick.touched">
+        El apodo es obligatorio
+    </span>
+
+    <ion-item lines="full">
+        <ion-label position="floating">Correo Electrónico</ion-label>
+        <ion-input name="email" #email="ngModel" [(ngModel)]="user.email"
+                type="email" placeholder="Correo Electrónico" required 
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"></ion-input>
+    </ion-item>
+    <span class="alert alert-danger" *ngIf="!email.valid && email.touched">
+        El correo es obligatorio
+    </span>
+
+    <ion-item>
+      <ion-label position="floating">Imagen de Perfil</ion-label>
+      <ion-input type="file" placeholder="Subir imagen"></ion-input>
+  </ion-item>
+
+    <ion-row>
+      <ion-col>
+        <button [disabled]="!editUser.form.valid" type="submit" expand="block" (click)="onSubmit()" class="btn btn-warning">Actualizar Datos</button>
+      </ion-col>
+    </ion-row>
+</form>
 </ion-content>

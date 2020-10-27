@@ -15,7 +15,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
   },
   {
-    path: 'account',
+    path: 'cuenta',
     loadChildren: () => import('./pages/account/account.module').then( m => m.AccountPageModule)
   }
 ];
