@@ -36,6 +36,7 @@ export class RegisterPage implements OnInit {
           console.log(response.user);
           this.status = 'success';
           registerForm.reset();
+          this._router.navigate(['/']);
         } else {
           this.status = 'error';
         }

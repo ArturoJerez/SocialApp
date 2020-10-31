@@ -10,9 +10,9 @@
     </ion-header>
     <ion-content>
       <ion-list>
-        <ion-item [routerLink]="['/cuenta']">Cuenta</ion-item>
+        <ion-item [routerLink]="['/cuenta']" [routerLinkActive]="['active']">Cuenta</ion-item>
         <ion-item>Timeline</ion-item>
-        <ion-item>Chats</ion-item>
+        <ion-item [routerLink]="['/gente']" [routerLinkActive]="['active']">Gente</ion-item>
       </ion-list>
       <ion-list>
         <ion-item class="pointer" (click)="logout()">Cerrar Sesión</ion-item>
