@@ -45,9 +45,6 @@ export class UsersPage implements OnInit {
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
     this.url = GLOBAL.url;
-    for (let i = 7; i < this.total?.length; i++) {
-      this.users.push(...this.users);
-    }
   }
 
   ngOnInit() {
@@ -164,20 +161,39 @@ export class UsersPage implements OnInit {
   }
 
   loadData(event) {
-    setTimeout(() => {
-      console.log("Cargando más usuarios...");
-      for (let i = 7; i < this.total?.length; i++) {
-        this.users.push(...this.users);
-      }
-
-      if(event) {
+      setTimeout(() => {
+        this._route.params.subscribe(params => {
+          for(var i = 1; i <= this.pages; i++) {
+            this.page = i+1;
+            if(this.page > this.pages) {
+              event.target.disabled = true;
+            } else {
+              // Devolver listado de usuarios
+              console.log("Cargando más usuarios...");
+              this._userService.getUsers(this.page).subscribe(
+                response => {
+                  if(!response.users) {
+                    this.status = 'error';
+                  } else {
+                    //console.log(response);
+                    this.status = 'success';
+                    this.users.push(...response.users);
+                  }
+                },
+                error => {
+                  var errorMessage = <any>error;
+                  console.log(errorMessage);
+          
+                  if(errorMessage != null) {
+                    this.status = 'error';
+                  }
+                });
+            }
+          }
+        });
         event.target.complete();
-      }
+      }, 1000);
 
-      if (this.users.length == this.total.length) {
-        event.target.disabled = true;
-      }
-    }, 600);
   }
 
 }

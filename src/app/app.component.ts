@@ -16,7 +16,10 @@ import { GLOBAL } from './services/global';
 })
 export class AppComponent implements OnInit, DoCheck {
   public identity;
+  public stats;
+  public token;
   public url: string;
+  public status;
 
   constructor(
     private platform: Platform,
@@ -28,12 +31,20 @@ export class AppComponent implements OnInit, DoCheck {
     private _router: Router
   ) {
     this.initializeApp();
+    this.identity = this._userService.getIdentity();
+    this.token = this._userService.getToken();
+    this.stats = this._userService.getStats();
     this.url = GLOBAL.url;
   }
 
   ngOnInit(): void {
+    console.log("Página sidebar cargado...");
+  }
+
+  ngDoCheck() {
     this.identity = this._userService.getIdentity();
-    //console.log(this.identity);
+    this.token = this._userService.getToken();
+    this.stats = this._userService.getStats();
   }
 
   initializeApp() {
@@ -47,11 +58,6 @@ export class AppComponent implements OnInit, DoCheck {
     this.menu.enable(true, 'first');
     this.menu.open('first');
   }
-
-  ngDoCheck() {
-    this.identity = this._userService.getIdentity();
-  }
-
   logout() {
     localStorage.clear();
     this.identity = null;

@@ -8,17 +8,25 @@
 
 <ion-content [fullscreen]="true" *ngIf="identity">
   <app-explore-container title="Bienvenido a SocialApp"></app-explore-container>
-  <ion-card >
+  <ion-card class="min-window">
     <ion-item>
       <ion-avatar slot="start">
         <img src="{{ url + 'get-image-user/' + identity.image }}" *ngIf="identity && identity.image" />
+        <img src="https://www.inmosenna.com/wp-content/uploads/2018/07/avatar-user-business-man-399587fe24739d5a-512x512.png" *ngIf="identity && !identity.image" />
       </ion-avatar>
-      <ion-label position="floating">En que estas pensando?</ion-label>
-      <ion-input type="text" required></ion-input>
+      <form #newPubForm="ngForm">
+        <ion-label position="floating">En que estas pensando?</ion-label>
+        <textarea class="form-control" name="text" #text="ngModel" [(ngModel)]="publication.text" required></textarea>
+        <span class="alert alert-danger" *ngIf="!text.valid && text.touched">
+          El texto es obligatorio
+        </span>
+
+        <ion-label>Subir imagen</ion-label>
+        <ion-input type="file" name="file" #file="ngModel" [(ngModel)]="publication.file" placeholder="Subir Imagen"></ion-input>
+
+        <button [disabled]="!newPubForm.form.valid" type="submit" (click)="onSubmit()" class="btn btn-primary">Publicar</button>
+      </form>
     </ion-item>
-    <ion-content>
-      <textarea></textarea>
-    </ion-content>
   </ion-card>
 </ion-content>
 

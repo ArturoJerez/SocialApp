@@ -12,6 +12,7 @@ export class UserService {
   public identity;
   public token;
   public stats: any;
+  public user: User;
 
   constructor(public _http: HttpClient) {
     this.url = GLOBAL.url;
