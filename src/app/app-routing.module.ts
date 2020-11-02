@@ -1,17 +1,35 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
-// Componentes
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+    loadChildren: () => import('./pages/tabs/tabs.module').then(m => m.TabsPageModule)
   },
-  {path: 'login', component: LoginComponent},
-  {path: 'registro', component: RegisterComponent}
+  {
+    path: 'registro',
+    loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'cuenta',
+    loadChildren: () => import('./pages/account/account.module').then( m => m.AccountPageModule)
+  },
+  {
+    path: 'gente',
+    loadChildren: () => import('./pages/users/users.module').then( m => m.UsersPageModule)
+  },
+  {
+    path: 'gente/:page',
+    loadChildren: () => import('./pages/users/users.module').then( m => m.UsersPageModule)
+  },
+  {
+    path: 'publication',
+    loadChildren: () => import('./pages/publication/publication.module').then( m => m.PublicationPageModule)
+  }
 ];
 
 @NgModule({

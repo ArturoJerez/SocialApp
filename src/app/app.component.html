@@ -1,21 +1,53 @@
 <ion-app>
-  <ion-menu side="start" menuId="first" contentId="main">
+  <ion-menu class="min-phone" side="start" menuId="first" contentId="main" *ngIf="identity && stats">
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-avatar slot="start">
+          <img width="60px" src="{{ url + 'get-image-user/' + identity.image }}" *ngIf="identity && identity.image" />
+          <img width="60px" src="https://www.inmosenna.com/wp-content/uploads/2018/07/avatar-user-business-man-399587fe24739d5a-512x512.png" *ngIf="identity && !identity.image" />
+        </ion-avatar>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <p>{{identity.name}}</p>
+              <p>{{identity.nick}}</p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">
+              {{stats.following}} Siguiendo
+            </ion-col>
+            <ion-col size="6">
+              {{stats.followed}} Seguidores
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <ion-item [routerLink]="['/cuenta']" [routerLinkActive]="['active']"><ion-icon name="person-outline"></ion-icon>Cuenta</ion-item>
+        <ion-item>Timeline</ion-item>
+        <ion-item [routerLink]="['/gente']" [routerLinkActive]="['active']"><ion-icon name="people-outline"></ion-icon>Personas</ion-item>
+      </ion-list>
+      <ion-list>
+        <ion-item class="pointer" (click)="logout()"><ion-icon name="log-out-outline"></ion-icon>Cerrar Sesión</ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+
+  <ion-menu class="min-phone" side="start" menuId="first" contentId="main" *ngIf="!identity">
     <ion-header>
       <ion-toolbar color="primary">
         <ion-avatar slot="start">
           <img src="https://www.inmosenna.com/wp-content/uploads/2018/07/avatar-user-business-man-399587fe24739d5a-512x512.png">
         </ion-avatar>
-        <ion-title>Mi Perfil</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content>
       <ion-list>
-        <ion-item>Cuenta</ion-item>
-        <ion-item>Buscar</ion-item>
-        <ion-item>Chats</ion-item>
-      </ion-list>
-      <ion-list>
-        <ion-item>Cerrar Sesión</ion-item>
+        <ion-item><a [routerLink]="['/login']" [routerLinkActive]="['active']"><ion-icon name="log-in-outline"></ion-icon>Iniciar Sesión</a></ion-item>
+        <ion-item><a [routerLink]="['/registro']" [routerLinkActive]="['active']"><ion-icon name="person-add-outline"></ion-icon>Registrarse</a></ion-item>
       </ion-list>
     </ion-content>
   </ion-menu>
