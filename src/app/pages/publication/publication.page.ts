@@ -1,17 +1,16 @@
-import { Component, DoCheck } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { UserService } from '../../services/user.service';
+
 import { GLOBAL } from '../../services/global';
 import { Publication } from '../../../models/publication';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  selector: 'app-publication',
+  templateUrl: './publication.page.html',
+  styleUrls: ['./publication.page.scss'],
   providers: [UserService]
 })
-export class HomePage implements DoCheck {
+export class PublicationPage implements OnInit, DoCheck {
   public identity;
   public stats: any;
   public url: string;
@@ -20,8 +19,6 @@ export class HomePage implements DoCheck {
   public publication: Publication;
 
   constructor(
-    private _route: ActivatedRoute,
-    private _router: Router,
     private _userService: UserService
     ) {
     this.url = GLOBAL.url;
@@ -31,8 +28,8 @@ export class HomePage implements DoCheck {
     this.publication = new Publication("", "", "", "", this.identity._id);
   }
 
-  ngOnInit(): void {
-    console.log('Página principal cargada...');
+  ngOnInit() {
+    console.log("Página de publicaciones cargado...");
   }
 
   ngDoCheck() {

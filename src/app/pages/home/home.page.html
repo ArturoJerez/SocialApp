@@ -1,4 +1,4 @@
-<ion-header [translucent]="true" class="min-phone">
+<ion-header [translucent]="true" class="min-phone" slot="fixed">
   <ion-toolbar>
     <ion-title>
       Inicio
@@ -28,6 +28,16 @@
       </form>
     </ion-item>
   </ion-card>
+
+  <ion-card id="publications">
+    
+  </ion-card>
+
+  <ion-fab class="min-phone" vertical="bottom" horizontal="end" slot="fixed" *ngIf="identity">
+    <ion-button href="/publication">
+        <ion-icon name="brush-outline"></ion-icon>
+    </ion-button>
+  </ion-fab>
 </ion-content>
 
 <ion-content [fullscreen]="true" *ngIf="!identity">

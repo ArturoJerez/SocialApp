@@ -1,0 +1,41 @@
+<ion-content [fullscreen]="true" *ngIf="identity" class="min-phone">
+  <app-explore-container title="Crear Publicación"></app-explore-container>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <form #newPubForm="ngForm">
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-avatar slot="start">
+                    <img src="{{ url + 'get-image-user/' + identity.image }}" *ngIf="identity && identity.image" />
+                    <img src="https://www.inmosenna.com/wp-content/uploads/2018/07/avatar-user-business-man-399587fe24739d5a-512x512.png" *ngIf="identity && !identity.image" />
+                  </ion-avatar>
+                  <ion-label>En que estas pensando?</ion-label>
+                </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-button [disabled]="!newPubForm.form.valid" type="submit" (click)="onSubmit()">Publicar</ion-button>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <textarea class="form-control" name="text" #text="ngModel" [(ngModel)]="publication.text" required></textarea>
+                <span class="alert alert-danger" *ngIf="!text.valid && text.touched">
+                  El texto es obligatorio
+                </span>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-label>Subir imagen</ion-label>
+                <ion-input type="file" name="file" #file="ngModel" [(ngModel)]="publication.file" placeholder="Subir Imagen"></ion-input>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

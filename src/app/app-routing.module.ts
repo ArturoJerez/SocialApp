@@ -27,8 +27,8 @@ const routes: Routes = [
     loadChildren: () => import('./pages/users/users.module').then( m => m.UsersPageModule)
   },
   {
-    path: '**',
-    loadChildren: () => import('./pages/tabs/tabs.module').then(m => m.TabsPageModule)
+    path: 'publication',
+    loadChildren: () => import('./pages/publication/publication.module').then( m => m.PublicationPageModule)
   }
 ];
 
