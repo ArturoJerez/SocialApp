@@ -1,47 +1,16 @@
-import { Component, DoCheck } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-
-import { UserService } from '../../services/user.service';
-import { GLOBAL } from '../../services/global';
-import { Publication } from '../../../models/publication';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  providers: [UserService]
 })
-export class HomePage implements DoCheck {
-  public identity;
-  public stats: any;
-  public url: string;
-  public token;
-  public status;
-  public publication: Publication;
+export class HomePage implements OnInit {
+  
+  constructor() {}
 
-  constructor(
-    private _route: ActivatedRoute,
-    private _router: Router,
-    private _userService: UserService
-    ) {
-    this.url = GLOBAL.url;
-    this.identity = this._userService.getIdentity();
-    this.token = this._userService.getToken();
-    this.stats = this._userService.getStats();
-    this.publication = new Publication("", "", "", "", this.identity._id);
-  }
-
-  ngOnInit(): void {
-    console.log('Página principal cargada...');
-  }
-
-  ngDoCheck() {
-    this.identity = this._userService.getIdentity();
-    this.stats = this._userService.getStats();
-  }
-
-  onSubmit() {
-    console.log(this.publication);
+  ngOnInit() {
+    console.log("Página principal cargada...");
   }
 
 }

@@ -105,12 +105,6 @@ export class UsersPage implements OnInit {
     );
   }
 
-  /*addMoreUsers() {
-    for (let i = 7; i < this.total?.length; i++) {
-      this.users.push(...this.users);
-    }
-  }*/
-
   public followsUserOver;
   touchedEnter(user_id) {
     this.followsUserOver = user_id;
@@ -175,7 +169,6 @@ export class UsersPage implements OnInit {
                   if(!response.users) {
                     this.status = 'error';
                   } else {
-                    //console.log(response);
                     this.status = 'success';
                     this.users.push(...response.users);
                   }

@@ -29,6 +29,10 @@ const routes: Routes = [
   {
     path: 'publication',
     loadChildren: () => import('./pages/publication/publication.module').then( m => m.PublicationPageModule)
+  },
+  {
+    path: 'home-identity',
+    loadChildren: () => import('./pages/home-identity/home-identity.module').then( m => m.HomeIdentityPageModule)
   }
 ];
 

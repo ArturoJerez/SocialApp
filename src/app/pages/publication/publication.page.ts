@@ -1,5 +1,8 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+
 import { UserService } from '../../services/user.service';
+import { PublicationsService } from '../../services/publications.service';
 
 import { GLOBAL } from '../../services/global';
 import { Publication } from '../../../models/publication';
@@ -8,7 +11,7 @@ import { Publication } from '../../../models/publication';
   selector: 'app-publication',
   templateUrl: './publication.page.html',
   styleUrls: ['./publication.page.scss'],
-  providers: [UserService]
+  providers: [UserService, PublicationsService]
 })
 export class PublicationPage implements OnInit, DoCheck {
   public identity;
@@ -19,7 +22,10 @@ export class PublicationPage implements OnInit, DoCheck {
   public publication: Publication;
 
   constructor(
-    private _userService: UserService
+    private _route: ActivatedRoute,
+    private _router: Router,
+    private _userService: UserService,
+    private _publicationsService: PublicationsService
     ) {
     this.url = GLOBAL.url;
     this.identity = this._userService.getIdentity();
@@ -38,7 +44,24 @@ export class PublicationPage implements OnInit, DoCheck {
   }
 
   onSubmit() {
-    console.log(this.publication);
+    this._publicationsService.addPublication(this.token, this.publication).subscribe(
+      (response) => {
+        if(response.publication) {
+          this.status = 'success';
+          this._router.navigate(['/home-identity']);
+        } else {
+          this.status = 'error';
+        }
+      },
+      (error) => {
+        var errorMessage = <any>error;
+        console.log(errorMessage);
+
+        if(errorMessage != null) {
+          this.status = 'error';
+        }
+      }
+    )
   }
 
 }
