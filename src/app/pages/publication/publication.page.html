@@ -30,7 +30,7 @@
             <ion-row>
               <ion-col>
                 <ion-label>Subir imagen</ion-label>
-                <ion-input type="file" name="file" #file="ngModel" [(ngModel)]="publication.file" placeholder="Subir Imagen"></ion-input>
+                <ion-input type="file" placeholder="Subir Imagen" (change)="fileChangeEvent($event)"></ion-input>
               </ion-col>
             </ion-row>
           </ion-grid>

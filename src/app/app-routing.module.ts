@@ -33,6 +33,10 @@ const routes: Routes = [
   {
     path: 'home-identity',
     loadChildren: () => import('./pages/home-identity/home-identity.module').then( m => m.HomeIdentityPageModule)
+  },
+  {
+    path: 'profile/:id',
+    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
   }
 ];
 

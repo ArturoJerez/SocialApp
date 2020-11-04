@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button *ngIf="user" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="h1-strong">{{title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="user">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="4">
+        <ion-avatar class="avatar pull-left">
+          <img class="avatar" src="{{ url + 'get-image-user/' + user.image }}" *ngIf="user && user.image" />
+          <img class="avatar" src="https://www.inmosenna.com/wp-content/uploads/2018/07/avatar-user-business-man-399587fe24739d5a-512x512.png" *ngIf="user && !user.image" />
+        </ion-avatar>
+        <ion-label class="nick" *ngIf="followed">Te sigue</ion-label>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button (click)="followUser(user._id)" *ngIf="!following">Seguir</ion-button>
+        <ion-button (click)="unfollowUser(user._id)" fill="outline" *ngIf="following">Siguiendo</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div class="user-name">
+    <p class="name">{{user.name + ' ' + user.surname}}</p>
+    <p class="nick">{{user.nick}}</p>
+  </div>
+
+  <div>
+    <ion-label>{{stats.following}} Siguiendo</ion-label>
+    &nbsp;
+    <ion-label>{{stats.followed}} Seguidores</ion-label>
+    &nbsp;
+    <ion-label>{{stats.publications}} Publicaciones</ion-label>
+  </div>
+  <div *ngIf="user">
+    <app-publications [user]="user._id"></app-publications>
+  </div>
+</ion-content>

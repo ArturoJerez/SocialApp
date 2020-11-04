@@ -4,6 +4,8 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { UserService } from '../../services/user.service';
 import { PublicationsService } from '../../services/publications.service';
+import { UploadService } from '../../services/upload.service';
+
 import { GLOBAL } from '../../services/global';
 import { Publication } from '../../../models/publication';
 
@@ -11,9 +13,9 @@ import { Publication } from '../../../models/publication';
   selector: 'app-home-identity',
   templateUrl: './home-identity.page.html',
   styleUrls: ['./home-identity.page.scss'],
-  providers: [UserService, PublicationsService]
+  providers: [UserService, PublicationsService, UploadService]
 })
-export class HomeIdentityPage implements OnInit {
+export class HomeIdentityPage implements OnInit, DoCheck {
   public identity;
   public stats: any;
   public url: string;
@@ -30,7 +32,8 @@ export class HomeIdentityPage implements OnInit {
     private _route: ActivatedRoute,
     private _router: Router,
     private _userService: UserService,
-    private _publicationsService: PublicationsService
+    private _publicationsService: PublicationsService,
+    private _uploadService: UploadService
     ) {
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
@@ -54,9 +57,15 @@ export class HomeIdentityPage implements OnInit {
     this._publicationsService.addPublication(this.token, this.publication).subscribe(
       (response) => {
         if(response.publication) {
-          this.status = 'success';
-          form.reset();
-          this._router.navigate(['/home-identity']);
+
+          // Subir imagen
+          this._uploadService.makeFileRequest(this.url+'upload-image-pub/'+response.publication._id, [], this.filesToUpload, this.token, 'image')
+                            .then((result: any) => {
+                              this.publication.file = result.image;
+                              this.status = 'success';
+                              form.reset();
+                              this._router.navigate(['/home-identity']);
+                            });
         } else {
           this.status = 'error';
         }
@@ -134,6 +143,11 @@ export class HomeIdentityPage implements OnInit {
       event.target.complete();
       this.getPublications(this.page, true);
     }, 1000);
+  }
+
+  public filesToUpload: Array<File>;
+  fileChangeEvent(fileInput: any) {
+    this.filesToUpload = <Array<File>>fileInput.target.files;
   }
 
   @Output() sended = new EventEmitter();
