@@ -29,7 +29,7 @@
         <ion-label>Subir imagen</ion-label>
         <ion-input type="file" placeholder="Subir Imagen" (change)="fileChangeEvent($event)"></ion-input>
 
-        <button [disabled]="!newPubForm.form.valid" type="submit" (click)="onSubmit(newPubForm); sendPublication($event)" class="btn btn-primary">Publicar</button>
+        <button [disabled]="!newPubForm.form.valid" type="submit" (click)="onSubmit(newPubForm, $event);" class="btn btn-primary">Publicar</button>
       </form>
     </ion-item>
   </ion-card>
@@ -40,15 +40,21 @@
         <img src="{{url + 'get-image-user/' + publication.user.image}}" *ngIf="publication.user.image" />
         <img src="https://www.inmosenna.com/wp-content/uploads/2018/07/avatar-user-business-man-399587fe24739d5a-512x512.png" *ngIf="!publication.user.image" />
       </ion-avatar>
-      <ion-label>{{publication.user.nick}}</ion-label>
-      <ion-button fill="outline" slot="end">View</ion-button>
+      <ion-label>{{publication.user.nick}} <p color="#EAEAEA">{{ publication.created_at | amLocale:'es' | amTimeAgo }}</p></ion-label>
+      <div>
+        <ion-button fill="outline" slot="end">Ver</ion-button>
+      </div>
+      <div *ngIf="publication.user._id == identity._id">
+        <ion-button (click)="presentAlertConfirm(publication._id)" color="danger" fill="outline" *ngIf="publication.user._id == identity._id">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+      </div>
     </ion-item>
     <ion-card-content>
       <h4>{{publication.text}}</h4>
-      <div *ngIf="publication.file">
+      <div *ngIf="publication.file != 'null'">
         <img width="250px" src="{{url + 'get-image-pub/' + publication.file}}" />
       </div>
-      <h5>{{ publication.created_at | amLocale:'es' | amTimeAgo }}</h5>
     </ion-card-content>
   </ion-card>
 

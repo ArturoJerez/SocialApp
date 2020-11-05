@@ -16,7 +16,7 @@
                 </ion-item>
               </ion-col>
               <ion-col>
-                <ion-button [disabled]="!newPubForm.form.valid" type="submit" (click)="onSubmit()">Publicar</ion-button>
+                <ion-button [disabled]="!newPubForm.form.valid" type="submit" (click)="onSubmit($event)">Publicar</ion-button>
               </ion-col>
             </ion-row>
             <ion-row>

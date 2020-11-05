@@ -1,5 +1,6 @@
 import { Component, DoCheck, EventEmitter, OnInit, Output } from '@angular/core';
 import * as $ from 'jquery';
+import { AlertController } from '@ionic/angular';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { UserService } from '../../services/user.service';
@@ -33,7 +34,8 @@ export class HomeIdentityPage implements OnInit, DoCheck {
     private _router: Router,
     private _userService: UserService,
     private _publicationsService: PublicationsService,
-    private _uploadService: UploadService
+    private _uploadService: UploadService,
+    public alertController: AlertController
     ) {
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
@@ -53,19 +55,26 @@ export class HomeIdentityPage implements OnInit, DoCheck {
     this.stats = this._userService.getStats();
   }
 
-  onSubmit(form) {
+  onSubmit(form, $event) {
     this._publicationsService.addPublication(this.token, this.publication).subscribe(
       (response) => {
         if(response.publication) {
-
-          // Subir imagen
-          this._uploadService.makeFileRequest(this.url+'upload-image-pub/'+response.publication._id, [], this.filesToUpload, this.token, 'image')
-                            .then((result: any) => {
-                              this.publication.file = result.image;
-                              this.status = 'success';
-                              form.reset();
-                              this._router.navigate(['/home-identity']);
-                            });
+          if(this.filesToUpload && this.filesToUpload.length) {
+            // Subir imagen
+            this._uploadService.makeFileRequest(this.url+'upload-image-pub/'+response.publication._id, [], this.filesToUpload, this.token, 'image')
+              .then((result: any) => {
+                this.publication.file = result.image;
+                this.status = 'success';
+                form.reset();
+                this._router.navigate(['/home-identity']);
+                this.sended.emit({send:'true'});
+              });
+          } else {
+            this.status = 'success';
+            form.reset();
+            this._router.navigate(['/home-identity']);
+            this.sended.emit({send:'true'});
+          }
         } else {
           this.status = 'error';
         }
@@ -119,6 +128,22 @@ export class HomeIdentityPage implements OnInit, DoCheck {
     )
   }
 
+  deletePublication(id) {
+    this._publicationsService.deletePublication(this.token, id).subscribe(
+      (response) => {
+        this.refresh();
+      },
+      (error) => {
+        var errorMessage = <any>error;
+        console.log(errorMessage);
+
+        if(errorMessage != null) {
+          this.status = 'error';
+        }
+      }
+    )
+  }
+
   public noMore = false;
   viewMore() {
     this.page += 1;
@@ -129,7 +154,7 @@ export class HomeIdentityPage implements OnInit, DoCheck {
     this.getPublications(this.page, true);
   }
 
-  refresh(event) {
+  refresh(event = null) {
     this.getPublications(1);
   }
 
@@ -153,6 +178,33 @@ export class HomeIdentityPage implements OnInit, DoCheck {
   @Output() sended = new EventEmitter();
   sendPublication(event) {
     this.sended.emit({send:'true'});
+  }
+
+  async presentAlertConfirm(id) {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: '¿Quieres eliminar la publicación?',
+      message: 'Si borras la publicación, no podras <strong>recuperarla</strong>.',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Eliminar',
+          cssClass: 'danger',
+          handler: () => {
+            console.log(id);
+            this.deletePublication(id);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
 }

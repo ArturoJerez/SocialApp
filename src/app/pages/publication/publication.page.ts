@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck } from '@angular/core';
+import { Component, OnInit, DoCheck, EventEmitter, Output } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { UserService } from '../../services/user.service';
@@ -45,18 +45,24 @@ export class PublicationPage implements OnInit, DoCheck {
     console.log("Página de publicaciones cargado...");
   }
 
-  onSubmit() {
+  onSubmit($event) {
     this._publicationsService.addPublication(this.token, this.publication).subscribe(
       (response) => {
         if(response.publication) {
-
-          // Subir imagen
-          this._uploadService.makeFileRequest(this.url+'upload-image-pub/'+response.publication._id, [], this.filesToUpload, this.token, 'image')
-                            .then((result: any) => {
-                              this.publication.file = result.image;
-                              this.status = 'success';
-                              this._router.navigate(['/home-identity']);
-                            });
+          if(this.filesToUpload && this.filesToUpload.length) {
+            // Subir imagen
+            this._uploadService.makeFileRequest(this.url+'upload-image-pub/'+response.publication._id, [], this.filesToUpload, this.token, 'image')
+              .then((result: any) => {
+                this.publication.file = result.image;
+                this.status = 'success';
+                this._router.navigate(['/home-identity']);
+                this.sended.emit({send:'true'});
+              });
+          } else {
+            this.status = 'success';
+            this._router.navigate(['/home-identity']);
+            this.sended.emit({send:'true'});
+          }
         } else {
           this.status = 'error';
         }
@@ -75,6 +81,11 @@ export class PublicationPage implements OnInit, DoCheck {
   public filesToUpload: Array<File>;
   fileChangeEvent(fileInput: any) {
     this.filesToUpload = <Array<File>>fileInput.target.files;
+  }
+
+  @Output() sended = new EventEmitter();
+  sendPublication(event) {
+    this.sended.emit({send:'true'});
   }
 
 }
