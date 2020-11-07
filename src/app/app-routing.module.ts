@@ -41,6 +41,10 @@ const routes: Routes = [
   {
     path: 'siguiendo/:id/:page',
     loadChildren: () => import('./pages/following/following.module').then( m => m.FollowingPageModule)
+  },
+  {
+    path: 'seguidores/:id/:page',
+    loadChildren: () => import('./pages/followed/followed.module').then( m => m.FollowedPageModule)
   }
 ];
 

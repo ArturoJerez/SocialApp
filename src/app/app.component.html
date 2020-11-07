@@ -15,10 +15,10 @@
           </ion-row>
           <ion-row>
             <ion-col size="6" color="#fff">
-              <a class="siguiendo-users" [routerLink]="['/siguiendo', identity._id, 1]">{{stats.following}} Siguiendo</a>
+              <a class="stats-users" [routerLink]="['/siguiendo', identity._id, 1]">{{stats.following}} Siguiendo</a>
             </ion-col>
             <ion-col size="6">
-              {{stats.followed}} Seguidores
+              <a class="stats-users" [routerLink]="['/seguidores', identity._id, 1]">{{stats.followed}} Seguidores</a>
             </ion-col>
           </ion-row>
         </ion-grid>

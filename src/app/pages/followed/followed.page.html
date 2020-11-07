@@ -7,41 +7,41 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" *ngIf="following">
+<ion-content [fullscreen]="true" *ngIf="followed">
   <ion-list>
-    <ion-item button *ngFor="let follow of following">
-      <ion-avatar slot="start" *ngIf="follow && follow.followed.image">
-        <img src="{{url + 'get-image-user/' + follow.followed.image}}" />
+    <ion-item button *ngFor="let follow of followed">
+      <ion-avatar slot="start" *ngIf="follow && follow.user.image">
+        <img src="{{url + 'get-image-user/' + follow.user.image}}" />
       </ion-avatar>
-      <ion-avatar slot="start" *ngIf="!follow.followed.image">
+      <ion-avatar slot="start" *ngIf="!follow.user.image">
         <img src="https://www.inmosenna.com/wp-content/uploads/2018/07/avatar-user-business-man-399587fe24739d5a-512x512.png" />
       </ion-avatar>
       <ion-grid>
         <ion-row>
           <ion-col>
-            <ion-label><a [routerLink]="['/profile', follow.followed._id]">{{follow.followed.name + ' ' + follow.followed.surname}}</a></ion-label>
+            <ion-label><a [routerLink]="['/profile', follow.user._id]">{{follow.user.name + ' ' + follow.user.surname}}</a></ion-label>
           </ion-col>
-          <ion-col *ngIf="follow.followed._id != identity._id && follows.indexOf(follow.followed._id) < 0">
-            <ion-button color="success" (click)="followUser(follow.followed._id)"> 
+          <ion-col *ngIf="follow.user._id != identity._id && follows.indexOf(follow.user._id) < 0">
+            <ion-button color="success" (click)="followUser(follow.user._id)"> 
             Seguir 
             <ion-icon name="add-circle-outline"></ion-icon></ion-button>
           </ion-col>
 
           <!-- SEGUIR / NO SEGUIR -->
-          <ion-col class="min-phone" *ngIf="follows.indexOf(follow.followed._id) >= 0" 
-            (button_touch_started)="touchedEnter(follow.followed._id)"
-            (button_touch_ended)="touchedLeave(follow.followed._id)">
-            <ion-button color="primary" (click)="unfollowuser(follow.followed._id)"> 
+          <ion-col class="min-phone" *ngIf="follows.indexOf(follow.user._id) >= 0" 
+            (button_touch_started)="touchedEnter(follow.user._id)"
+            (button_touch_ended)="touchedLeave(follow.user._id)">
+            <ion-button color="primary" (click)="unfollowuser(follow.user._id)"> 
               Siguiendo
               <ion-icon name="checkmark-circle-outline"></ion-icon>
             </ion-button>
           </ion-col>
 
 
-          <ion-col class="min-window" *ngIf="follows.indexOf(follow.followed._id) >= 0" 
-                  (mouseenter)="touchedEnter(follow.followed._id)"
-                  (mouseleave)="touchedLeave(follow.followed._id)"
-                  [class.btn-danger]="follow.followed._id == followsUserOver">
+          <ion-col class="min-window" *ngIf="follows.indexOf(follow.user._id) >= 0" 
+                  (mouseenter)="touchedEnter(follow.user._id)"
+                  (mouseleave)="touchedLeave(follow.user._id)"
+                  [class.btn-danger]="follow.user._id == followsUserOver">
             <ng-template #following>
               <ion-button color="primary"> 
                 Siguiendo
@@ -49,8 +49,8 @@
               </ion-button>
             </ng-template>
 
-            <span *ngIf="follow.followed._id == followsUserOver; else following">
-              <ion-button color="danger" (click)="unfollowuser(follow.followed._id)">
+            <span *ngIf="follow.user._id == followsUserOver; else following">
+              <ion-button color="danger" (click)="unfollowuser(follow.user._id)">
                 Dejar de Seguir
                 <ion-icon name="remove-circle-outline"></ion-icon>
               </ion-button>
@@ -60,7 +60,7 @@
   
         <ion-row>
           <ion-col size="6">
-            <ion-label>{{follow.followed.nick}}</ion-label>
+            <ion-label>{{follow.user.nick}}</ion-label>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -76,7 +76,7 @@
 
   <!-- PAGINACIÓN -->
   <ul class="pagination pull-right min-window">
-    <li *ngIf="page > 1"><a [routerLink]="['/siguiendo', user_page_id, prev_page]">Anterior</a></li>
-    <li *ngIf="pages != page"><a [routerLink]="['/siguiendo', user_page_id, next_page]">Siguiente</a></li>
+    <li *ngIf="page > 1"><a [routerLink]="['/seguidores', user_page_id, prev_page]">Anterior</a></li>
+    <li *ngIf="pages != page"><a [routerLink]="['/seguidores', user_page_id, next_page]">Siguiente</a></li>
   </ul>
 </ion-content>
