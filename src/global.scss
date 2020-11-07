@@ -35,6 +35,15 @@
     .min-window {
         display: none;
     }
+
+    .siguiendo-users {
+        color: #fff;
+    }
+
+    .active {
+        background: #d6d4d4;
+        font-size: 19px;
+    }
 }
 
 /* Generales */
@@ -45,11 +54,6 @@
     margin-top: 15px;
     padding-bottom: 15px;
     border-bottom: 1px solid #eee;
-}
-
-.active {
-    background: #d6d4d4;
-    font-size: 19px;
 }
 
 .pointer {

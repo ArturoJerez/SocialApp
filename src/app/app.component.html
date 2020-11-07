@@ -14,8 +14,8 @@
             </ion-col>
           </ion-row>
           <ion-row>
-            <ion-col size="6">
-              {{stats.following}} Siguiendo
+            <ion-col size="6" color="#fff">
+              <a class="siguiendo-users" [routerLink]="['/siguiendo', identity._id, 1]">{{stats.following}} Siguiendo</a>
             </ion-col>
             <ion-col size="6">
               {{stats.followed}} Seguidores
@@ -27,7 +27,7 @@
     <ion-content>
       <ion-list>
         <ion-item [routerLink]="['/cuenta']" [routerLinkActive]="['active']"><ion-icon name="person-outline"></ion-icon>Cuenta</ion-item>
-        <ion-item>Timeline</ion-item>
+        <ion-item [routerLink]="['/home-identity']" [routerLinkActive]="['active']">Publicaciones</ion-item>
         <ion-item [routerLink]="['/gente']" [routerLinkActive]="['active']"><ion-icon name="people-outline"></ion-icon>Personas</ion-item>
       </ion-list>
       <ion-list>
