@@ -55,12 +55,12 @@ export class PublicationPage implements OnInit, DoCheck {
               .then((result: any) => {
                 this.publication.file = result.image;
                 this.status = 'success';
-                this._router.navigate(['/home-identity']);
+                this._router.navigate(['/tabs/home-identity']);
                 this.sended.emit({send:'true'});
               });
           } else {
             this.status = 'success';
-            this._router.navigate(['/home-identity']);
+            this._router.navigate(['/tabs/home-identity']);
             this.sended.emit({send:'true'});
           }
         } else {

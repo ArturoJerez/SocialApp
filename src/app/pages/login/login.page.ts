@@ -111,7 +111,7 @@ export class LoginPage implements OnInit {
         console.log(response);
         localStorage.setItem('stats', JSON.stringify(response));
         this.status = 'success';
-        this._router.navigate(['/home-identity']);
+        this._router.navigate(['/tabs/home-identity']);
       },
       (error) => {
         console.log(<any>error);

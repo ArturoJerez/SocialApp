@@ -31,10 +31,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/publication/publication.module').then( m => m.PublicationPageModule)
   },
   {
-    path: 'home-identity',
-    loadChildren: () => import('./pages/home-identity/home-identity.module').then( m => m.HomeIdentityPageModule)
-  },
-  {
     path: 'profile/:id',
     loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
   },
@@ -45,6 +41,10 @@ const routes: Routes = [
   {
     path: 'seguidores/:id/:page',
     loadChildren: () => import('./pages/followed/followed.module').then( m => m.FollowedPageModule)
+  },
+  {
+    path: 'messages-main',
+    loadChildren: () => import('./pages/messages-main/messages-main.module').then( m => m.MessagesMainPageModule)
   }
 ];
 

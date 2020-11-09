@@ -165,7 +165,7 @@ export class FollowedPage implements OnInit {
           this.user = response.user;
           this.getFollows(user_id, page);
         } else {
-          this._router.navigate(['/home-identity']);
+          this._router.navigate(['/tabs/home-identity']);
         }
       },
       (error) => {
