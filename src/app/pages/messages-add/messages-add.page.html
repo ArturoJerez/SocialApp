@@ -7,5 +7,29 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!-- FORMULARIO ENVÍO -->
+  
+  <form #addMessageForm="ngForm" novalidate>
+    <ion-item>
+        <ion-label>Para:</ion-label>
+        <!-- Listado de seguidores -->
+        <ion-select *ngIf="follows" name="receiver" #receiver="ngModel" [(ngModel)]="message.receiver">
+          <ion-select-option *ngFor="let follow of follows" value="{{follow.user._id}}">
+            {{follow.user.name + ' ' + follow.user.surname + ' (' + follow.user.nick + ')'}}
+          </ion-select-option>
+        </ion-select>
+    </ion-item>
+
+    <ion-item>
+        <ion-label position="floating">Escribe tu Mensaje:</ion-label>
+        <br/>
+        <textarea class="form-control" name="text" #text="ngModel" [(ngModel)]="message.text" required></textarea>
+    </ion-item>
+    <span class="alert alert-danger" *ngIf="!text.valid && text.touched">
+        Debe contener algún texto obligatorio
+    </span>
+
+    <br/>
+    <ion-button [disabled]="!addMessageForm.form.valid" share="round" (click)="onSubmit(addMessageForm)" >Enviar</ion-button>
+  </form>
+
 </ion-content>

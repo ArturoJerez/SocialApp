@@ -41,10 +41,6 @@ const routes: Routes = [
   {
     path: 'seguidores/:id/:page',
     loadChildren: () => import('./pages/followed/followed.module').then( m => m.FollowedPageModule)
-  },
-  {
-    path: 'messages-main',
-    loadChildren: () => import('./pages/messages-main/messages-main.module').then( m => m.MessagesMainPageModule)
   }
 ];
 

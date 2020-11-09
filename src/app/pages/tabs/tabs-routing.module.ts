@@ -33,11 +33,19 @@ const routes: Routes = [
             loadChildren: () => import('../messages-received/messages-received.module').then(m => m.MessagesReceivedPageModule)
           },
           {
+            path: 'recibidos/:page',
+            loadChildren: () => import('../messages-received/messages-received.module').then(m => m.MessagesReceivedPageModule)
+          },
+          {
             path: 'enviar',
             loadChildren: () => import('../messages-add/messages-add.module').then(m => m.MessagesAddPageModule)
           },
           {
             path: 'enviados',
+            loadChildren: () => import('../messages-sended/messages-sended.module').then(m => m.MessagesSendedPageModule)
+          },
+          {
+            path: 'enviados/:page',
             loadChildren: () => import('../messages-sended/messages-sended.module').then(m => m.MessagesSendedPageModule)
           },
           {
