@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MessagesPage } from '../messages/messages.page';
 import { TabsPage } from './tabs.page';
+import { UserGuardService } from '../../services/user-guard.service';
 
 const routes: Routes = [
   {
@@ -14,7 +14,8 @@ const routes: Routes = [
       },
       {
         path: 'home-identity',
-        loadChildren: () => import('../home-identity/home-identity.module').then(m => m.HomeIdentityPageModule)
+        loadChildren: () => import('../home-identity/home-identity.module').then(m => m.HomeIdentityPageModule),
+        canActivate: [UserGuardService]
       },
       {
         path: 'tab2',
@@ -23,6 +24,7 @@ const routes: Routes = [
       {
         path: 'chats',
         loadChildren: () => import('../messages/messages.module').then(m => m.MessagesPageModule),
+        canActivate: [UserGuardService],
         children: [
           {
             path: '',

@@ -10,10 +10,14 @@
   <ion-card *ngFor="let message of messages">
     <ion-item>
       <ion-avatar class="image-separator">
-        <img src="{{url + 'get-image-user/' + message.receiver.image}}" *ngIf="message.receiver.image" />
-        <img src="https://www.inmosenna.com/wp-content/uploads/2018/07/avatar-user-business-man-399587fe24739d5a-512x512.png" *ngIf="!message.receiver.image" />
+        <img src="{{url + 'get-image-user/' + message.emitter.image}}" *ngIf="message.emitter.image" />
+        <img src="https://www.inmosenna.com/wp-content/uploads/2018/07/avatar-user-business-man-399587fe24739d5a-512x512.png" *ngIf="!message.emitter.image" />
       </ion-avatar>
-      <ion-label><a  [routerLink]="['/profile', message.receiver._id]">{{message.receiver.nick}}</a> | <p color="#EAEAEA">{{ message.created_at | amLocale:'es' | amTimeAgo }}</p></ion-label>
+      <ion-label>Enviado a: <a  [routerLink]="['/profile', message.receiver._id]">{{message.receiver.nick}}</a>
+        <div>
+          <p color="#EAEAEA">{{ message.created_at | amLocale:'es' | amTimeAgo }}</p>
+        </div>
+      </ion-label>
       <div>
         <ion-button fill="outline" slot="end">Ver</ion-button>
       </div>
