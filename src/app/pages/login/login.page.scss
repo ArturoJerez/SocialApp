@@ -1,0 +1,48 @@
+@media(min-width:599px) {
+    .min-phone {
+        display: none;
+    }
+
+    .tools-cards {
+        margin-left: 250px;
+        position: absolute;
+        width: 50%;
+    }
+}
+
+@media(max-width:600px) {
+    .min-window {
+        display: none;
+    }
+}
+
+#background-image {
+    position: absolute;
+    opacity: 0.2;
+    z-index: 0;
+}
+
+#background-image-phone {
+    position: absolute;
+    opacity: 0.2;
+    z-index: 0;
+}
+
+#logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.tools-cards {
+    z-index: 1;
+    margin-top: 200px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    --ion-card-border: rgb(116, 210, 253);
+    --ion-card-background: rgb(245, 244, 244);
+    --ion-item-background: rgb(245, 244, 244);
+}
+
+.button-login {
+    margin: 10px;
+}

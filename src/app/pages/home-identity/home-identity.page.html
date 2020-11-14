@@ -1,0 +1,77 @@
+<ion-header [translucent]="true" class="min-phone" slot="fixed">
+  <ion-toolbar color="primary">
+    <ion-title>
+      Publicaciones
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="fondo" [fullscreen]="true" (sended)="refresh($event)">
+
+  <button class="min-window btn btn-success btn-sm btn-block" (click)="refresh($event)">
+    Mostrar nuevas
+  </button>
+  <ion-card class="min-window">
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="{{ url + 'get-image-user/' + identity.image }}" *ngIf="identity && identity.image" />
+        <img src="https://www.inmosenna.com/wp-content/uploads/2018/07/avatar-user-business-man-399587fe24739d5a-512x512.png" *ngIf="identity && !identity.image" />
+      </ion-avatar>
+      <form #newPubForm="ngForm">
+        <ion-label position="floating">En que estas pensando?</ion-label>
+        <textarea class="form-control" name="text" #text="ngModel" [(ngModel)]="publication.text" required></textarea>
+        <span class="alert alert-danger" *ngIf="!text.valid && text.touched">
+          El texto es obligatorio
+        </span>
+
+        <ion-label>Subir imagen</ion-label>
+        <ion-input type="file" placeholder="Subir Imagen" (change)="fileChangeEvent($event)"></ion-input>
+
+        <button [disabled]="!newPubForm.form.valid" type="submit" (click)="onSubmit(newPubForm, $event);" class="btn btn-primary">Publicar</button>
+      </form>
+    </ion-item>
+  </ion-card>
+
+  <ion-card *ngFor="let publication of publications">
+    <ion-item>
+      <ion-avatar class="image-separator">
+        <img src="{{url + 'get-image-user/' + publication.user.image}}" *ngIf="publication.user.image" />
+        <img src="https://www.inmosenna.com/wp-content/uploads/2018/07/avatar-user-business-man-399587fe24739d5a-512x512.png" *ngIf="!publication.user.image" />
+      </ion-avatar>
+      <ion-label>{{publication.user.nick}} <p color="#EAEAEA">{{ publication.created_at | amLocale:'es' | amTimeAgo }}</p></ion-label>
+      <div>
+        <ion-button fill="outline" slot="end">Ver</ion-button>
+      </div>
+      <div *ngIf="publication.user._id == identity._id">
+        <ion-button (click)="presentAlertConfirm(publication._id)" color="danger" fill="outline" *ngIf="publication.user._id == identity._id">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </ion-item>
+    <ion-card-content>
+      <h4>{{publication.text}}</h4>
+      <div *ngIf="publication.file != 'null'">
+        <img width="250px" src="{{url + 'get-image-pub/' + publication.file}}" />
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-infinite-scroll threshold="120px" (ionInfinite)="loadData($event)" class="min-phone">
+    <ion-infinite-scroll-content
+      loadingSpinner="crescent"
+      loadingText="Cargando más datos...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <div *ngIf="publications && publications.length">
+    <button class="min-window btn btn-success btn-lg btn-block" (click)="viewMore()" *ngIf="!noMore">
+      Ver más publicaciones
+    </button>
+  </div>
+
+  <ion-fab class="min-phone" vertical="bottom" horizontal="end" slot="fixed" *ngIf="identity">
+    <ion-button href="/publication">
+        <ion-icon name="brush-outline"></ion-icon>
+    </ion-button>
+  </ion-fab>
+</ion-content>

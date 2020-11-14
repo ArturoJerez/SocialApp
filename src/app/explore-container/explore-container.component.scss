@@ -1,3 +1,21 @@
+@media(min-width:599px) {
+  .min-phone {
+      display: none;
+  }
+
+  .logoc {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+@media(max-width:600px) {
+  .min-window {
+      display: none;
+  }
+}
+
 #container {
   text-align: center;
 }

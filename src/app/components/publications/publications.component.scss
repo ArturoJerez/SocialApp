@@ -1,0 +1,16 @@
+@media(min-width:599px) {
+    .min-phone {
+        display: none;
+    }
+}
+
+@media(max-width:600px) {
+    .min-window {
+        display: none;
+    }
+
+}
+
+.image-separator {
+    margin-right: 10px;
+}

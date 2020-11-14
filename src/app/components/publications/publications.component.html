@@ -1,0 +1,28 @@
+<ion-card *ngFor="let publication of publications">
+  <ion-item>
+    <ion-avatar class="image-separator">
+      <img src="{{url + 'get-image-user/' + publication.user.image}}" *ngIf="publication.user.image" />
+      <img src="https://www.inmosenna.com/wp-content/uploads/2018/07/avatar-user-business-man-399587fe24739d5a-512x512.png" *ngIf="!publication.user.image" />
+    </ion-avatar>
+    <ion-label>{{publication.user.nick}}</ion-label>
+    <ion-button fill="outline" slot="end">View</ion-button>
+  </ion-item>
+  <ion-card-content>
+    <h4>{{publication.text}}</h4>
+    <img width="250px" src="{{url + 'get-image-pub/' + publication.file}}" *ngIf="publication.file" />
+    <h5>{{ publication.created_at | amLocale:'es' | amTimeAgo }}</h5>
+  </ion-card-content>
+</ion-card>
+
+<ion-infinite-scroll threshold="120px" (ionInfinite)="loadData($event)" class="min-phone">
+  <ion-infinite-scroll-content
+    loadingSpinner="crescent"
+    loadingText="Cargando más datos...">
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll>
+
+<div *ngIf="publications && publications.length">
+  <button class="min-window btn btn-success btn-lg btn-block" (click)="viewMore()" *ngIf="!noMore">
+    Ver más publicaciones
+  </button>
+</div>

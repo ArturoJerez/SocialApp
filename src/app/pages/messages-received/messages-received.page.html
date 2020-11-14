@@ -1,0 +1,43 @@
+<ion-header [translucent]="true" class="min-phone">
+  <ion-toolbar>
+    <ion-title>
+      {{title}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card *ngFor="let message of messages">
+    <ion-item>
+      <ion-avatar class="image-separator">
+        <img src="{{url + 'get-image-user/' + message.emitter.image}}" *ngIf="message.emitter.image" />
+        <img src="https://www.inmosenna.com/wp-content/uploads/2018/07/avatar-user-business-man-399587fe24739d5a-512x512.png" *ngIf="!message.emitter.image" />
+      </ion-avatar>
+      <ion-label><a  [routerLink]="['/profile', message.emitter._id]">{{message.emitter.nick}}</a> | <p color="#EAEAEA">{{ message.created_at | amLocale:'es' | amTimeAgo }}</p></ion-label>
+      <div>
+        <ion-button fill="outline" slot="end">Ver</ion-button>
+      </div>
+      <div *ngIf="message.receiver._id != identity._id">
+        <ion-button (click)="presentAlertConfirm(message.receiver._id)" color="danger" fill="outline">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </ion-item>
+    <ion-card-content>
+      <p>{{message.text}}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-infinite-scroll threshold="120px" (ionInfinite)="loadData($event)" class="min-phone">
+    <ion-infinite-scroll-content
+      loadingSpinner="crescent"
+      loadingText="Cargando más datos...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <!-- PAGINACIÓN -->
+  <ul class="pagination pull-right min-window">
+    <li *ngIf="page > 1"><a [routerLink]="['/tabs/chats/recibidos', prev_page]">Anterior</a></li>
+    <li *ngIf="pages != page"><a [routerLink]="['/tabs/chats/recibidos', next_page]">Siguiente</a></li>
+  </ul>
+</ion-content>

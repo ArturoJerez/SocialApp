@@ -1,27 +1,43 @@
-<ion-content padding>
-  <h1 class="h1-strong">{{title}}</h1>
+<ion-content>
+    <div id="background-image" class="min-window">
+        <img src="../../../assets/background-login-register1.jpg" />
+    </div>
+    <div id="background-image-phone" class="min-phone">
+        <img src="../../../assets/background-phone.jpg" />
+    </div>
+    <div id="container-logo-card-login">
+        <ion-card class="tools-cards">
+            <div id="logo">
+                <h3><a href="/">HobbTag</a></h3>
+            </div>
+            <br/><br/>
+            <ion-card-title class="h1-strong text-center">{{title}}</ion-card-title>
+            <form #loginForm="ngForm">
+                <ion-item class="form-group">
+                    <ion-label>Correo Electrónico</ion-label>
+                    <ion-input class="form-control" name="email" #email="ngModel" [(ngModel)]="user.email"
+                            type="email" placeholder="Correo Electrónico" required 
+                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"></ion-input>
+                </ion-item>
+                <span class="alert alert-danger" *ngIf="!email.valid && email.touched">
+                    El correo es obligatorio
+                </span>
 
-    <form #loginForm="ngForm">
-        <ion-item>
-            <ion-label>Correo Electrónico</ion-label>
-            <ion-input class="form-control" name="email" #email="ngModel" [(ngModel)]="user.email"
-                    type="email" placeholder="Correo Electrónico" required 
-                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"></ion-input>
-        </ion-item>
-        <span class="alert alert-danger" *ngIf="!email.valid && email.touched">
-            El correo es obligatorio
-        </span>
+                <ion-item class="form-group">
+                    <ion-label>Contraseña</ion-label>
+                    <ion-input class="form-control" name="password" #password="ngModel" [(ngModel)]="user.password"
+                            type="password" placeholder="Contraseña" required></ion-input> 
+                </ion-item>
+                <span class="alert alert-danger" *ngIf="!password.valid && password.touched">
+                    La contraseña es obligatorio
+                </span>
 
-        <ion-item>
-            <ion-label>Contraseña</ion-label>
-            <ion-input class="form-control" name="password" #password="ngModel" [(ngModel)]="user.password"
-                    type="password" placeholder="Contraseña" required></ion-input> 
-        </ion-item>
-        <span class="alert alert-danger" *ngIf="!password.valid && password.touched">
-            La contraseña es obligatorio
-        </span>
-
-        <button [disabled]="!loginForm.form.valid" type="submit" (click)="onSubmit()" class="btn btn-success">Acceder</button>
-  </form>
+                <div>
+                    <button [disabled]="!loginForm.form.valid" type="submit" (click)="onSubmit()" class="button-login btn btn-success">Acceder</button>
+                    <span [routerLink]="['/registro']">Crear cuenta</span>
+                </div>
+            </form>
+        </ion-card>
+    </div>
 
 </ion-content>

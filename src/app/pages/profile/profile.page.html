@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button *ngIf="user" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="user">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="4">
+        <ion-avatar class="avatar pull-left">
+          <img class="avatar" src="{{ url + 'get-image-user/' + user.image }}" *ngIf="user && user.image" />
+          <img class="avatar" src="https://www.inmosenna.com/wp-content/uploads/2018/07/avatar-user-business-man-399587fe24739d5a-512x512.png" *ngIf="user && !user.image" />
+          </ion-avatar>
+      </ion-col>
+      <ion-col size="6">
+        <div *ngIf="user._id != identity._id">
+          <ion-button (click)="followUser(user._id)" *ngIf="!following">Seguir</ion-button>
+        </div>
+        <ion-button (click)="unfollowUser(user._id)" fill="outline" *ngIf="following">Siguiendo</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div class="user-name">
+    <p class="name">{{user.name + ' ' + user.surname}} <span class="badge badge-secondary" *ngIf="followed">Te sigue</span></p>
+    <p class="nick">{{user.nick}}</p>
+  </div>
+
+  <div>
+    <ion-label><a class="stats-users-profile" [routerLink]="['/siguiendo', user._id, 1]">{{stats.following}} Siguiendo</a></ion-label>
+    &nbsp;
+    <ion-label><a class="stats-users-profile" [routerLink]="['/seguidores', user._id, 1]">{{stats.followed}} Seguidores</a></ion-label>
+    &nbsp;
+    <ion-label>{{stats.publications}} Publicaciones</ion-label>
+  </div>
+  <div *ngIf="user">
+    <app-publications [user]="user._id"></app-publications>
+  </div>
+</ion-content>

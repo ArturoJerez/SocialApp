@@ -1,0 +1,15 @@
+@media(min-width:599px) {
+    .min-phone {
+        display: none;
+    }
+}
+
+@media(max-width:600px) {
+    .min-window {
+        display: none;
+    }
+
+    .pull-right {
+        text-align: right;
+    }
+}

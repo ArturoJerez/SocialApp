@@ -24,6 +24,7 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+@import "bootstrap";
 
 @media(min-width:599px) {
     .min-phone {
@@ -35,6 +36,15 @@
     .min-window {
         display: none;
     }
+
+    .stats-users {
+        color: #fff;
+    }
+
+    .active {
+        background: #d6d4d4;
+        font-size: 19px;
+    }
 }
 
 /* Generales */
@@ -45,11 +55,6 @@
     margin-top: 15px;
     padding-bottom: 15px;
     border-bottom: 1px solid #eee;
-}
-
-.active {
-    background: #d6d4d4;
-    font-size: 19px;
 }
 
 .pointer {

@@ -24,7 +24,7 @@ export class LoginPage implements OnInit {
     private _userService: UserService,
     public toastController: ToastController
   ) {
-    this.title = "Identificate";
+    this.title = "Iniciar Sesión";
     this.user = new User("", "", "", "", "", "", "ROLE_USER", ""); // Creo un usuario vacío
   }
 
@@ -111,7 +111,7 @@ export class LoginPage implements OnInit {
         console.log(response);
         localStorage.setItem('stats', JSON.stringify(response));
         this.status = 'success';
-        this._router.navigate(['/']);
+        this._router.navigate(['/tabs/home-identity']);
       },
       (error) => {
         console.log(<any>error);
