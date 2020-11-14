@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonInfiniteScroll } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { Message } from '../../../models/message';
@@ -41,7 +42,8 @@ export class MessagesSendedPage implements OnInit {
     private _router: Router,
     private _messageService: MessageService,
     private _userService: UserService,
-    private _followService: FollowService
+    private _followService: FollowService,
+    public alertController: AlertController
   ) {
     this.title = 'Mensajes enviados';
     this.identity = this._userService.getIdentity();
@@ -103,6 +105,26 @@ export class MessagesSendedPage implements OnInit {
     )
   }
 
+  refresh(event = null) {
+    this.getMessages(this.token, 1);
+  }
+
+  deleteMessage(id) {
+    this._messageService.deleteMessagesEmitter(this.token, id).subscribe(
+      (response) => {
+        this.refresh();
+      },
+      (error) => {
+        var errorMessage = <any>error;
+        console.log(errorMessage);
+
+        if(errorMessage != null) {
+          this.status = 'error';
+        }
+      }
+    )
+  }
+
   loadData(event) {
     setTimeout(() => {
       this._route.params.subscribe(params => {
@@ -136,6 +158,34 @@ export class MessagesSendedPage implements OnInit {
       event.target.complete();
     }, 1000);
 
-}
+  }
+
+  async presentAlertConfirm(id) {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: '¿Quieres eliminar este mensaje?',
+      message: 'Si borras este mensaje, no podras <strong>recuperarlo</strong>.',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Cancelado');
+          }
+        }, {
+          text: 'Eliminar',
+          cssClass: 'danger',
+          handler: () => {
+            console.log(id);
+            //Eliminar mensajes
+            this.deleteMessage(id);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
 
 }

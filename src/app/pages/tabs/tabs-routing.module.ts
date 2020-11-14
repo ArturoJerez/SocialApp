@@ -9,10 +9,6 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'home',
-        loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)
-      },
-      {
         path: 'home-identity',
         loadChildren: () => import('../home-identity/home-identity.module').then(m => m.HomeIdentityPageModule),
         canActivate: [UserGuardService]
@@ -59,14 +55,14 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/tabs/home',
+        redirectTo: '/login',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/home',
+    redirectTo: '/login',
     pathMatch: 'full'
   }
 ];

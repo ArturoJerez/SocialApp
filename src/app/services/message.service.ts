@@ -35,4 +35,16 @@ export class MessageService {
     return this._http.get(this.url+'messages-emitter/'+page, {headers: headers});
   }
 
+  deleteMessagesReceiver(token, idMessage): Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/json')
+                                    .set('Authorization', token);
+    return this._http.delete(this.url+'receiver-messages/'+idMessage, {headers: headers});
+  }
+
+  deleteMessagesEmitter(token, idMessage): Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/json')
+                                    .set('Authorization', token);
+    return this._http.delete(this.url+'emitter-messages/'+idMessage, {headers: headers});
+  }
+
 }

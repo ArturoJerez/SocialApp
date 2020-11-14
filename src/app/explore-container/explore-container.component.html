@@ -1,52 +1,53 @@
 <ion-header [translucent]="true" class="min-window">
-  <ion-toolbar>
-    <button ion-button icon-only menuToggle>
-      <ion-title><a href="/">Inicio</a></ion-title>
-    </button>
-    <button ion-button icon-only menuToggle>
-      <ion-title><a href="/tabs/tab2">Buscar</a></ion-title>
-    </button>
-    <button ion-button icon-only menuToggle>
-      <ion-title><a href="/tabs/tab3">Chats</a></ion-title>
-    </button>
-  </ion-toolbar>
 
-  <nav class="nav-right-column">
+  <nav class="nav-right-column navbar navbar-expand-lg navbar-light bg-light min-window">
     <!-- USUARIO LOGUEADO -->
-    <ul class="nav navbar-nav navbar-right" *ngIf="identity">
+    <div class="nav navbar-nav navbar-right" *ngIf="identity">
       <li class="dropdown min-window">
-        <ion-avatar slot="start">
-          <img src="{{ url + 'get-image-user/' + identity.image }}" *ngIf="identity && identity.image" />
-          <img src="https://www.inmosenna.com/wp-content/uploads/2018/07/avatar-user-business-man-399587fe24739d5a-512x512.png" *ngIf="identity && !identity.image" />
-        </ion-avatar>
         <a class="dropdown-toogle" data-toggle="dropdown">
-          {{identity.name}} <span class="caret"></span>
+          <ion-avatar>
+            <img src="{{ url + 'get-image-user/' + identity.image }}" *ngIf="identity && identity.image" />
+            <img src="https://www.inmosenna.com/wp-content/uploads/2018/07/avatar-user-business-man-399587fe24739d5a-512x512.png" *ngIf="identity && !identity.image" />
+          </ion-avatar>
         </a>
-
         <ul class="dropdown-menu min-window">
           <li>
             <a href="/cuenta">
-              Cuenta
+              <ion-icon name="person-outline"></ion-icon>Cuenta
+            </a>
+          </li>
+          <li>
+            <a href="/tabs/home-identity">
+              <ion-icon name="list-circle-outline"></ion-icon>Publicaciones
             </a>
           </li>
           <li>
             <a href="/gente">
-              Personas
+              <ion-icon name="people-outline"></ion-icon>Personas
             </a>
           </li>
           <li>
-            <a href="#">
-              Chats
+            <a href="/tabs/chats">
+              <ion-icon name="chatbox-ellipses-outline"></ion-icon>Chats
             </a>
           </li>
+          <li>
+            <a href="/tabs/tab2">
+              <ion-icon name="search-outline"></ion-icon>Buscar
+            </a>
+          </li>
+          <div class="dropdown-divider"></div>
           <li>
             <a class="pointer" (click)="logout_container()">
-              Cerrar Sesión
+              <ion-icon name="log-out-outline"></ion-icon>Cerrar Sesión
             </a>
           </li>
         </ul>
       </li>
-    </ul>
+    </div>
+    <div class="logoc">
+      <h1><a href="/">HobbTag</a></h1>
+    </div>
 
     <!-- USUARIO NO LOGUEADO -->
     <ul class="nav navbar-nav navbar-right" *ngIf="!identity">
@@ -59,13 +60,13 @@
           <li>
             <a href="/login">
               <span class="glypicon glypicon-user"></span>
-              Iniciar Sesión
+              <ion-icon name="log-in-outline"></ion-icon>Iniciar Sesión
             </a>
           </li>
           <li>
             <a href="/registro">
               <span class="glypicon glypicon-user"></span>
-              Registrarse
+              <ion-icon name="person-add-outline"></ion-icon>Registrarse
             </a>
           </li>
         </ul>

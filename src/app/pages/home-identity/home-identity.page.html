@@ -1,12 +1,13 @@
 <ion-header [translucent]="true" class="min-phone" slot="fixed">
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>
       Publicaciones
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" (sended)="refresh($event)">
+<ion-content class="fondo" [fullscreen]="true" (sended)="refresh($event)">
+
   <button class="min-window btn btn-success btn-sm btn-block" (click)="refresh($event)">
     Mostrar nuevas
   </button>

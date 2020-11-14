@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, DoCheck, ViewChild } from '@angular/core';
 import { IonInfiniteScroll } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { Router, ActivatedRoute, Params } from '@angular/router';
@@ -19,7 +19,7 @@ import { GLOBAL } from '../../services/global';
   styleUrls: ['./messages-received.page.scss'],
   providers: [MessageService, FollowService, UserService]
 })
-export class MessagesReceivedPage implements OnInit {
+export class MessagesReceivedPage implements OnInit, DoCheck {
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
 
   public url: string;
@@ -55,6 +55,11 @@ export class MessagesReceivedPage implements OnInit {
   ngOnInit() {
     console.log("Página de recibidos cargado...");
     this.actualPage();
+  }
+
+  ngDoCheck() {
+    this.identity = this._userService.getIdentity();
+    this.stats = this._userService.getStats();
   }
 
   actualPage() {
@@ -105,6 +110,26 @@ export class MessagesReceivedPage implements OnInit {
     )
   }
 
+  refresh(event = null) {
+    this.getMessages(this.token, 1);
+  }
+
+  deleteMessage(id) {
+    this._messageService.deleteMessagesReceiver(this.token, id).subscribe(
+      (response) => {
+        this.refresh();
+      },
+      (error) => {
+        var errorMessage = <any>error;
+        console.log(errorMessage);
+
+        if(errorMessage != null) {
+          this.status = 'error';
+        }
+      }
+    )
+  }
+
   loadData(event) {
     setTimeout(() => {
       this._route.params.subscribe(params => {
@@ -140,7 +165,7 @@ export class MessagesReceivedPage implements OnInit {
 
   }
 
-  /*async presentAlertConfirm(id) {
+  async presentAlertConfirm(id) {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: '¿Quieres eliminar este mensaje?',
@@ -159,12 +184,13 @@ export class MessagesReceivedPage implements OnInit {
           handler: () => {
             console.log(id);
             //Eliminar mensajes
+            this.deleteMessage(id);
           }
         }
       ]
     });
 
     await alert.present();
-  }*/
+  }
 
 }

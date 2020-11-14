@@ -8,7 +8,10 @@
     .min-window {
         display: none;
     }
+}
 
+ion-content {
+    --ion-card-background: rgb(243, 243, 243) !important;
 }
 
 .image-separator {

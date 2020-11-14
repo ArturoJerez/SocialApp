@@ -27,27 +27,10 @@
     <ion-content>
       <ion-list>
         <ion-item [routerLink]="['/cuenta']" [routerLinkActive]="['active']"><ion-icon name="person-outline"></ion-icon>Cuenta</ion-item>
-        <ion-item [routerLink]="['/tabs/home-identity']" [routerLinkActive]="['active']"><ion-icon name="list-circle-outline"></ion-icon>Publicaciones</ion-item>
         <ion-item [routerLink]="['/gente']" [routerLinkActive]="['active']"><ion-icon name="people-outline"></ion-icon>Personas</ion-item>
       </ion-list>
       <ion-list>
         <ion-item class="pointer" (click)="logout()"><ion-icon name="log-out-outline"></ion-icon>Cerrar Sesión</ion-item>
-      </ion-list>
-    </ion-content>
-  </ion-menu>
-
-  <ion-menu class="min-phone" side="start" menuId="first" contentId="main" *ngIf="!identity">
-    <ion-header>
-      <ion-toolbar color="primary">
-        <ion-avatar slot="start">
-          <img src="https://www.inmosenna.com/wp-content/uploads/2018/07/avatar-user-business-man-399587fe24739d5a-512x512.png">
-        </ion-avatar>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content>
-      <ion-list>
-        <ion-item><a [routerLink]="['/login']" [routerLinkActive]="['active']"><ion-icon name="log-in-outline"></ion-icon>Iniciar Sesión</a></ion-item>
-        <ion-item><a [routerLink]="['/registro']" [routerLinkActive]="['active']"><ion-icon name="person-add-outline"></ion-icon>Registrarse</a></ion-item>
       </ion-list>
     </ion-content>
   </ion-menu>
