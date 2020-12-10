@@ -16,6 +16,7 @@ import { Publication } from '../../../models/publication';
 })
 export class PublicationPage implements OnInit, DoCheck {
   public identity;
+  public title: string;
   public stats: any;
   public url: string;
   public token;
@@ -30,6 +31,7 @@ export class PublicationPage implements OnInit, DoCheck {
     private _uploadService: UploadService
     ) {
     this.url = GLOBAL.url;
+    this.title = 'Crear Publicación';
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
     this.stats = this._userService.getStats();

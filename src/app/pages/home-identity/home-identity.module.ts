@@ -5,7 +5,7 @@ import { MomentModule } from 'angular2-moment';
 import { IonicModule } from '@ionic/angular';
 
 import { HomeIdentityPageRoutingModule } from './home-identity-routing.module';
-import { ExploreContainerComponentModule } from '../../explore-container/explore-container.module';
+import { ExploreContainerComponentModule } from '../../components/explore-container/explore-container.module';
 
 import { HomeIdentityPage } from './home-identity.page';
 

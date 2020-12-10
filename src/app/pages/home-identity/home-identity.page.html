@@ -1,8 +1,8 @@
 <ion-header [translucent]="true" class="min-phone" slot="fixed">
   <ion-toolbar color="primary">
-    <ion-title>
-      Publicaciones
-    </ion-title>
+    <div class="img-center">
+      <img type="image/png" src="../../../assets/hobbtag-title.png" />
+    </div>
   </ion-toolbar>
 </ion-header>
 
@@ -40,7 +40,7 @@
       </ion-avatar>
       <ion-label>{{publication.user.nick}} <p color="#EAEAEA">{{ publication.created_at | amLocale:'es' | amTimeAgo }}</p></ion-label>
       <div>
-        <ion-button fill="outline" slot="end">Ver</ion-button>
+        <ion-button [routerLink]="['/publication-view', publication._id]" fill="outline" slot="end">Ver</ion-button>
       </div>
       <div *ngIf="publication.user._id == identity._id">
         <ion-button (click)="presentAlertConfirm(publication._id)" color="danger" fill="outline" *ngIf="publication.user._id == identity._id">

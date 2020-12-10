@@ -8,36 +8,41 @@
 </ion-header>
 
 <ion-content *ngIf="user">
-  <ion-grid>
-    <ion-row>
-      <ion-col size="4">
-        <ion-avatar class="avatar pull-left">
-          <img class="avatar" src="{{ url + 'get-image-user/' + user.image }}" *ngIf="user && user.image" />
-          <img class="avatar" src="https://www.inmosenna.com/wp-content/uploads/2018/07/avatar-user-business-man-399587fe24739d5a-512x512.png" *ngIf="user && !user.image" />
+  <div class="container">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="4">
+          <ion-avatar class="avatar pull-left">
+            <img class="avatar" src="{{ url + 'get-image-user/' + user.image }}" *ngIf="user && user.image" />
+            <img class="avatar" src="https://www.inmosenna.com/wp-content/uploads/2018/07/avatar-user-business-man-399587fe24739d5a-512x512.png" *ngIf="user && !user.image" />
           </ion-avatar>
-      </ion-col>
-      <ion-col size="6">
-        <div *ngIf="user._id != identity._id">
-          <ion-button (click)="followUser(user._id)" *ngIf="!following">Seguir</ion-button>
-        </div>
-        <ion-button (click)="unfollowUser(user._id)" fill="outline" *ngIf="following">Siguiendo</ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+        </ion-col>
+        <ion-col size="6">
+          <div *ngIf="user._id == identity._id">
+            <ion-button [routerLink]="['/cuenta']">Modificar Datos</ion-button>
+          </div>
+          <div *ngIf="user._id != identity._id">
+            <ion-button (click)="followUser(user._id)" *ngIf="!following">Seguir</ion-button>
+          </div>
+          <ion-button (click)="unfollowUser(user._id)" fill="outline" *ngIf="following">Siguiendo</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
-  <div class="user-name">
-    <p class="name">{{user.name + ' ' + user.surname}} <span class="badge badge-secondary" *ngIf="followed">Te sigue</span></p>
-    <p class="nick">{{user.nick}}</p>
-  </div>
+    <div class="user-name">
+      <p class="name">{{user.name + ' ' + user.surname}} <span class="badge badge-secondary" *ngIf="followed">Te sigue</span></p>
+      <p class="nick">#{{user.nick}}</p>
+    </div>
 
-  <div>
-    <ion-label><a class="stats-users-profile" [routerLink]="['/siguiendo', user._id, 1]">{{stats.following}} Siguiendo</a></ion-label>
-    &nbsp;
-    <ion-label><a class="stats-users-profile" [routerLink]="['/seguidores', user._id, 1]">{{stats.followed}} Seguidores</a></ion-label>
-    &nbsp;
-    <ion-label>{{stats.publications}} Publicaciones</ion-label>
-  </div>
-  <div *ngIf="user">
-    <app-publications [user]="user._id"></app-publications>
+    <div>
+      <ion-label><a class="stats-users-profile" [routerLink]="['/siguiendo', user._id, 1]"><ion-badge color="secondary">{{stats.following}} Siguiendo</ion-badge></a></ion-label>
+      &nbsp;
+      <ion-label><a class="stats-users-profile" [routerLink]="['/seguidores', user._id, 1]"><ion-badge color="secondary">{{stats.followed}} Seguidores</ion-badge></a></ion-label>
+      &nbsp;
+      <ion-label><ion-badge color="secondary">{{stats.publications}} Publicaciones</ion-badge></ion-label>
+    </div>
+    <div *ngIf="user">
+      <app-publications [user]="user._id"></app-publications>
+    </div>
   </div>
 </ion-content>

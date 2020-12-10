@@ -1,0 +1,21 @@
+<ion-header [translucent]="true" class="min-phone" slot="fixed">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <div class="img-center">
+      <img type="image/png" src="../../../assets/hobbtag-title.png" />
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <ion-card-content>
+      <h4>{{publication.text}}</h4>
+      <div *ngIf="publication.file != 'null'">
+        <img width="250px" src="{{url + 'get-image-pub/' + publication.file}}" />
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

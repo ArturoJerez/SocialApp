@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { MessagesMainPageRoutingModule } from './messages-main-routing.module';
-import { ExploreContainerComponentModule } from '../../explore-container/explore-container.module';
+import { ExploreContainerComponentModule } from '../../components/explore-container/explore-container.module';
 
 import { MessagesMainPage } from './messages-main.page';
 

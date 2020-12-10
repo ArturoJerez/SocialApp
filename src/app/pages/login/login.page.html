@@ -1,14 +1,13 @@
 <ion-content>
-    <div id="background-image" class="min-window">
-        <img src="../../../assets/background-login-register1.jpg" />
-    </div>
     <div id="background-image-phone" class="min-phone">
         <img src="../../../assets/background-phone.jpg" />
     </div>
     <div id="container-logo-card-login">
         <ion-card class="tools-cards">
             <div id="logo">
-                <h3><a href="/">HobbTag</a></h3>
+                <div class="img-center">
+                    <img type="image/png" src="../../../assets/hobbtag-title.png" />
+                </div>
             </div>
             <br/><br/>
             <ion-card-title class="h1-strong text-center">{{title}}</ion-card-title>
@@ -34,7 +33,7 @@
 
                 <div>
                     <button [disabled]="!loginForm.form.valid" type="submit" (click)="onSubmit()" class="button-login btn btn-success">Acceder</button>
-                    <span [routerLink]="['/registro']">Crear cuenta</span>
+                    <span [routerLink]="['/register']">Crear cuenta</span>
                 </div>
             </form>
         </ion-card>

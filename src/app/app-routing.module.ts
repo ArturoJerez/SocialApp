@@ -8,7 +8,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
-    path: 'registro',
+    path: 'register',
     loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
   },
   {
@@ -49,6 +49,14 @@ const routes: Routes = [
     path: 'seguidores/:id/:page',
     loadChildren: () => import('./pages/followed/followed.module').then( m => m.FollowedPageModule),
     canActivate: [UserGuardService]
+  },
+  {
+    path: 'info',
+    loadChildren: () => import('./pages/info/info.module').then( m => m.InfoPageModule)
+  },
+  {
+    path: 'publication-view/:id',
+    loadChildren: () => import('./pages/publication-view/publication-view.module').then( m => m.PublicationViewPageModule)
   }
 ];
 
