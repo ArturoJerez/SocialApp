@@ -3,22 +3,22 @@
     <ion-header>
       <ion-toolbar color="primary">
         <ion-avatar slot="start">
-          <img width="60px" src="{{ url + 'get-image-user/' + identity.image }}" *ngIf="identity && identity.image" />
-          <img width="60px" src="https://www.inmosenna.com/wp-content/uploads/2018/07/avatar-user-business-man-399587fe24739d5a-512x512.png" *ngIf="identity && !identity.image" />
+          <img width="75px" src="{{ url + 'get-image-user/' + identity.image }}" *ngIf="identity && identity.image" />
+          <img width="75px" src="https://www.inmosenna.com/wp-content/uploads/2018/07/avatar-user-business-man-399587fe24739d5a-512x512.png" *ngIf="identity && !identity.image" />
         </ion-avatar>
         <ion-grid>
           <ion-row>
             <ion-col>
-              <p>{{identity.name}}</p>
-              <p>{{identity.nick}}</p>
+              <h3>{{identity.name}}</h3>
+              <p>#{{identity.nick}}</p>
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col size="6" color="#fff">
-              <a class="stats-users" [routerLink]="['/siguiendo', identity._id, 1]">{{stats.following}} Siguiendo</a>
+              <a class="stats-users" [routerLink]="['/siguiendo', identity._id, 1]"><ion-badge color="secondary">{{stats.following}} Siguiendo</ion-badge></a>
             </ion-col>
             <ion-col size="6">
-              <a class="stats-users" [routerLink]="['/seguidores', identity._id, 1]">{{stats.followed}} Seguidores</a>
+              <a class="stats-users" [routerLink]="['/seguidores', identity._id, 1]"><ion-badge color="secondary">{{stats.followed}} Seguidores</ion-badge></a>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -26,8 +26,9 @@
     </ion-header>
     <ion-content>
       <ion-list>
-        <ion-item [routerLink]="['/cuenta']" [routerLinkActive]="['active']"><ion-icon name="person-outline"></ion-icon>Cuenta</ion-item>
+        <ion-item [routerLink]="['/profile', identity._id]" [routerLinkActive]="['active']"><ion-icon name="person-outline"></ion-icon>Cuenta</ion-item>
         <ion-item [routerLink]="['/gente']" [routerLinkActive]="['active']"><ion-icon name="people-outline"></ion-icon>Personas</ion-item>
+        <ion-item [routerLink]="['/info']" [routerLinkActive]="['active']"><ion-icon name="information-circle-outline"></ion-icon>Información</ion-item>
       </ion-list>
       <ion-list>
         <ion-item class="pointer" (click)="logout()"><ion-icon name="log-out-outline"></ion-icon>Cerrar Sesión</ion-item>

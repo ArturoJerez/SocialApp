@@ -5,7 +5,7 @@
       <img src="https://www.inmosenna.com/wp-content/uploads/2018/07/avatar-user-business-man-399587fe24739d5a-512x512.png" *ngIf="!publication.user.image" />
     </ion-avatar>
     <ion-label>{{publication.user.nick}}</ion-label>
-    <ion-button fill="outline" slot="end">View</ion-button>
+    <ion-button [routerLink]="['/publication-view', publication._id]" fill="outline" slot="end">Ver</ion-button>
   </ion-item>
   <ion-card-content>
     <h4>{{publication.text}}</h4>

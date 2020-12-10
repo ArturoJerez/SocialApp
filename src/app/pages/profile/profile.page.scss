@@ -55,3 +55,8 @@
 .stats-users-profile {
     color: black;
 }
+
+ion-content {
+    --ion-card-background: rgb(241, 253, 255) !important;
+    --ion-card-color: black;
+}

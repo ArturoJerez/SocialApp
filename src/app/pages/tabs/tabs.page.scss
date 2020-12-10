@@ -3,3 +3,14 @@
         display: none;
     }
 }
+
+ion-tab-button {
+    color: black;
+    :active {
+        color: white;
+    }
+}
+
+ion-tab-button {
+    background-color: #3880ff;
+}

@@ -1,35 +1,35 @@
 <ion-header [translucent]="true" class="min-phone">
-  <ion-toolbar>
-    <ion-title>{{title}}</ion-title>
+  <ion-toolbar color="primary">
+    <div class="img-center">
+      <img type="image/png" src="../../../assets/hobbtag-title.png" />
+    </div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" *ngIf="identity">
-  <app-explore-container title="Tus Mensajes Privados"></app-explore-container>
-  <ion-item button>
-    <ion-avatar slot="start">
-      <img src="https://www.inmosenna.com/wp-content/uploads/2018/07/avatar-user-business-man-399587fe24739d5a-512x512.png">
-    </ion-avatar>
-    <ion-label>
-      Viste el nuevo trailer de FF9?
-    </ion-label>
-  </ion-item>
+  <app-explore-container title="Mensajes Privados"></app-explore-container>
 
-  <!-- <ion-item button [routerLink]="['enviar']" [routerLinkActive]="['active']">
-    Enviar mensaje
-  </ion-item> -->
+  <div class="container">
 
-  <ion-item button [routerLink]="['recibidos']" [routerLinkActive]="['active']">
-    Mensajes recibidos
-  </ion-item>
+    <div class="alert alert-info" role="alert">
+      <p>Todos los mensajes privados que recibas o envias se notificaran <strong>aquí</strong>.</p>
+      <hr>
+      <p class="mb-0">Pues probar a enviar uno a tus amigos.</p>
+    </div>
 
-  <ion-item button [routerLink]="['enviados']" [routerLinkActive]="['active']">
-    Mensajes enviados
-  </ion-item>
-
-  <ion-item button [routerLink]="['/tabs/home-identity']" [routerLinkActive]="['active']">
-    Información
-  </ion-item>
+    <div class="media-body">
+      <h2 button [routerLink]="['recibidos']">
+        <ion-icon name="paper-plane-outline"></ion-icon>
+        Mensajes recibidos
+        <ion-badge color="danger">2</ion-badge>
+      </h2>
+      <h2 button [routerLink]="['enviados']">
+        <ion-icon name="send-outline"></ion-icon>
+        Mensajes enviados
+        <ion-badge color="danger">1</ion-badge>
+      </h2>
+    </div>
+  </div>
 
   <ion-fab class="min-phone" vertical="bottom" horizontal="end" slot="fixed">
     <ion-button [routerLink]="['enviar']">

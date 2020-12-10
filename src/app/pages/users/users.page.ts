@@ -50,7 +50,6 @@ export class UsersPage implements OnInit {
   ngOnInit() {
     console.log("Página de gente funcionando...");
     this.actualPage();
-    //this.addMoreUsers();
   }
 
   actualPage() {
